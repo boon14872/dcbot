@@ -1,5 +1,6 @@
-const Bclient = require('./Structures/Bclient').default;
+const Botclient = require('./Structures/Bclient');
 const config = require('../config.json');
 
-const client = new Bclient(config);
-client.login();
+const client = new Botclient(config);
+
+client.start();

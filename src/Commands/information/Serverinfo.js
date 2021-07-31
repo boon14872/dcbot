@@ -37,8 +37,9 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			aliases: ['server', 'guild', 'guildinfo'],
-			description: 'Displays information about the server that said message was run in.',
-			category: 'Information'
+			description: 'แสดงข้อมูลของเซิฟเวอร์นี้.',
+			category: 'Information',
+			usage: 'serverinfo'
 		});
 	}
 
@@ -48,14 +49,15 @@ module.exports = class extends Command {
 		const channels = message.guild.channels.cache;
 		const emojis = message.guild.emojis.cache;
 
+
 		const embed = new MessageEmbed()
-			.setDescription(`**ขข้อมูลของเซิพเวอร์ __${message.guild.name}__**`)
+			.setDescription(`**ข้อมูลของเซิพเวอร์ __${message.guild.name}__**`)
 			.setColor('BLUE')
 			.setThumbnail(message.guild.iconURL({ dynamic: true }))
 			.addField('General', [
 				`**❯ Name:** ${message.guild.name}`,
 				`**❯ ID:** ${message.guild.id}`,
-				`**❯ Owner:** ${message.guild.owner.user.tag} (${message.guild.ownerID})`,
+				`**❯ Owner:** ${message.guild.owner} (${message.guild.ownerID})`,
 				`**❯ Region:** ${regions[message.guild.region]}`,
 				`**❯ Boost Tier:** ${message.guild.premiumTier ? `Tier ${message.guild.premiumTier}` : 'None'}`,
 				`**❯ Explicit Filter:** ${filterLevels[message.guild.explicitContentFilter]}`,
@@ -86,6 +88,12 @@ module.exports = class extends Command {
 			.addField(`Roles [${roles.length - 1}]`, roles.length < 10 ? roles.join(', ') : roles.length > 10 ? this.client.utils.trimArray(roles) : 'None')
 			.setTimestamp();
 		message.channel.send(embed);
+
+		const list = client.guilds.get(message.guild.id); 
+
+		// Iterate through the collection of GuildMembers from the Guild getting the username property of each member 
+		list.members.forEach(member => console.log(member.user.username)); 
+
 	}
 
 };

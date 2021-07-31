@@ -13,40 +13,12 @@ module.exports = class Bclient extends Client {
 
         this.aliases = new Collection();
 
+        this.events = new Collection();
+
         this.utils = new Util(this);
+        
+        this.owners = options.owners;
 
-
-		this.once('ready', () => {
-			console.log(`Logged in as ${this.user.username}!`);
-		});
-
-		this.on('message', async (message) => {
-            
-            // console.log(message);
-
-			const mentionRegex = RegExp(`^<@!${this.user.id}>$`);
-			const mentionRegexPrefix = RegExp(`^<@!${this.user.id}> `);
-
-			if (!message.guild || message.author.bot) return;
-
-			if (message.content.match(mentionRegex)) message.channel.send(`My prefix for ${message.guild.name} is  \`${this.prefix}\`.`);
-
-			const prefix = message.content.match(mentionRegexPrefix) ?
-				message.content.match(mentionRegexPrefix)[0] : this.prefix;
-            // console.log(prefix);
-			
-			if(!message.content.startsWith(prefix)) return;
-
-			// eslint-disable-next-line no-unused-vars
-			const [cmd, ...args] = message.content.slice(prefix.length).trim().split(/ +/g);
-
-            const command = this.commands.get(cmd.toLowerCase()) || this.commands.get(this.aliases.get(cmd.toLowerCase()));
-
-            if (command) {
-                // console.log(command);
-                command.run(message, args);
-            }
-		});
 	}
     validate(options) {
         if (typeof options !== 'object') throw new TypeError('Optional should be a Type Object.');
@@ -61,6 +33,7 @@ module.exports = class Bclient extends Client {
 
     async start(token = this.token) {
         this.utils.loadCommands();
+        this.utils.loadEvents();
         super.login(token);
     }
     

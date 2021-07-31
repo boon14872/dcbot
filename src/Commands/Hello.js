@@ -1,5 +1,5 @@
 const Command = require('./../Structures/Command.js');
-const Discord = require('discord.js');
+const {GuildMember, MessageEmbed} = require('discord.js');
 
 module.exports = class extends Command {
 
@@ -10,13 +10,8 @@ module.exports = class extends Command {
     }
 
     async run(message, args) {
-        const user = message.author;
+        let msg = ['สวัสดี','หวัดดี','หนี ห่าว','Hi'];
+        message.channel.send(`${msg[Math.floor(Math.random() * msg.length)]} ${message.author}`);
 
-        const Embed = new Discord.MessageEmbed();
-
-        let EmbedM = Embed.setColor('#45968A').setImage(message.author.avatarURL({ dynamic: true })).setTitle(`สวัสดี คุณ **${user.tag}**`);
-
-        message.channel.send(EmbedM);
-        
     }
 };

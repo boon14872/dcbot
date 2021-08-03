@@ -8,6 +8,11 @@ module.exports = class extends Event {
 
         if (!message.guild || message.author.bot) return;
 
+        if(message.content.includes('บอทโง่')) {
+            const text = ['มึงอะโง่','ทำไมทำตัวไม่ฉลาดเลย','เหมืองมึงฉลาดอะ','โง่เหมือนนายกบางประเทศเลย','สมองมีแค่ 84,000 เซลล์หรอ'];
+            message.channel.send(`${message.author} ${text[Math.floor(Math.random()*text.length)]}`);
+        }
+
         if (message.content.match(mentionRegex)) message.channel.send(`My prefix for ${message.guild.name} is  \`${this.client.prefix}\`.`);
         // console.log(prefix);
         const prefix = message.content.match(mentionRegexPrefix) ?
@@ -23,5 +28,6 @@ module.exports = class extends Event {
             // console.log(command);
             command.run(message, args);
         }
+
     }
 }

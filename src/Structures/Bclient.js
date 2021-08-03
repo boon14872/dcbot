@@ -29,6 +29,8 @@ module.exports = class Bclient extends Client {
         if (!options.prefix) throw new Error('You mus paa a prefix for the client.');
         if (typeof options.prefix !== 'string') throw new TypeError('prefix Should be a type of String.'); 
         this.prefix = options.prefix;
+        if (typeof options.msglog !== 'string') throw new TypeError('msglog Should be a type of String.'); 
+        this.msglog = options.msglog;
     }
 
     async start(token = this.token) {

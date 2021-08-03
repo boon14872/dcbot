@@ -37,7 +37,7 @@ module.exports = class extends Command {
 		} else {
 			embed.setDescription([
 				`คำสั่งที่ใช้ได้ของ ${message.guild.name}`,
-				`บอท ทำงานด้วยคีย์ : ${this.client.prefix}`,
+				`บอท ทำงานด้วย : ${this.client.prefix}`,
 				`Command Parameters: \`<>\` is strict & \`[]\` is optional`
 			]);
 			let categories;
